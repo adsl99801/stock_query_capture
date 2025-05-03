@@ -1,0 +1,5 @@
+{
+    "login_url": "https://stockservices.tdcc.com.tw/evote/login/goTwFidO.html",
+    "query_buttons_url": "https://stockservices.tdcc.com.tw/evote/shareholder/000/tc_estock_welshas.html?stockInfo=",
+    "redirect_url_contains": "tc_estock_welshas"
+  }

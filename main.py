@@ -1,0 +1,76 @@
+from setup_driver import setup_driver
+from login import perform_login
+from click_query import get_query_buttons, click_query_button
+from extract_text import extract_text
+from capture_screenshot import capture_screenshot
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from config import load_config
+
+def process_query_buttons(driver, query_buttons_url, stock_info_page):
+    """Process each query button for a given stockInfo URL."""
+    index = 1
+    while True:
+        print(f"\n處理第 {index} 個查詢按鈕 for stockInfo={stock_info_page}")
+        try:
+            # 步驟 4：獲取所有查詢按鈕
+            query_buttons = get_query_buttons(driver)
+            if not query_buttons:
+                print(f"未找到任何查詢按鈕 for stockInfo={stock_info_page}，結束處理")
+                break
+            if index > len(query_buttons):
+                print(f"所有查詢按鈕已處理完畢 for stockInfo={stock_info_page}")
+                break
+            print(f"process_query_buttons:{index}")
+            # 步驟 5：點擊查詢按鈕
+            button = query_buttons[index - 1]  # 獲取當前索引的按鈕
+            click_query_button(driver, button,query_buttons_url)
+
+            # 步驟 6：提取文字
+            filename = extract_text(driver)
+
+            # 步驟 7：擷取截圖
+            capture_screenshot(driver, filename,stock_info_page)
+
+            # 返回初始頁面
+            driver.get(query_buttons_url)
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID, "stockInfo"))
+            )
+            index += 1
+        except Exception as e:
+            print(f"處理第 {index} 個查詢按鈕時發生錯誤 for stockInfo={stock_info_page}：{e}")
+            break  # 或 continue，根據需求決定是否繼續
+def main():
+    try:
+        # 步驟 0：初始化 WebDriver
+        driver = setup_driver()
+
+        # 步驟 1 登入
+        perform_login(driver)
+
+        # 步驟 2：從 config 載入 configuration
+        config = load_config()
+        base_query_buttons_url = config["query_buttons_url"]
+
+        # 步驟 3：迴圈處理 stockInfo 從 1 到 4
+        for stock_info in range(1, 5):
+            query_buttons_url = f"{base_query_buttons_url}{stock_info}"
+            print(f"正在跳轉至初始頁面：{query_buttons_url}")
+            driver.get(query_buttons_url)
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.TAG_NAME, "body"))
+            )
+
+            # 步驟 5：處理查詢按鈕
+            process_query_buttons(driver, query_buttons_url, stock_info)
+
+    except Exception as e:
+        print(f"執行過程中發生錯誤：{e}")
+
+    # 不關閉瀏覽器
+    print("腳本執行完畢，瀏覽器保持開啟")
+
+if __name__ == "__main__":
+    main()
