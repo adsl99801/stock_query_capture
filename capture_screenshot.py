@@ -17,7 +17,7 @@ def capture_screenshot(driver, filename, folderName):
     cropped_image = full_image.crop(crop_box)
 
     # 檢查並建立資料夾
-    output_dir = f"./result/{folderName}"
+    output_dir = f"./result"
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
         print(f"已建立資料夾：{output_dir}")

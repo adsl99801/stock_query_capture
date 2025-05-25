@@ -1,5 +1,24 @@
 {
-    "login_url": "https://stockservices.tdcc.com.tw/evote/login/goTwFidO.html",
-    "query_buttons_url": "https://stockservices.tdcc.com.tw/evote/shareholder/000/tc_estock_welshas.html?stockInfo=",
-    "redirect_url_contains": "tc_estock_welshas"
-  }
+  "login_url": "https://stockservices.tdcc.com.tw/evote/login/goTwFidO.html",
+  "query_buttons_url": "https://stockservices.tdcc.com.tw/evote/shareholder/000/tc_estock_welshas.html?stockInfo=",
+  "redirect_url_contains": "tc_estock_welshas",
+  "input_pageIdNo": "//input[@name=\"pageIdNo\"]",
+  "input_pageIdNo_value": "XXXXXXXXXX",
+  "select_caType": "//select[@name=\"caType\"]",
+  "select_caType_value": "ST",
+  "button_nextStepBtn": "//button[@name=\"nextStepBtn\"]",
+  "a_vote":"//a[text()='投票']",
+  "a_approve":"//a[contains(text(),'全部贊成') or contains(@onclick,'optionAll(0)')]",
+  "a_approve_next_button":"//button[contains(text(),'下一步')][last()]",
+  "div_votelist_actions":"//div[@class='c-votelist_actions']",
+  "a_approve_sure":"//button[contains(text(),'確認投票結果')]",
+  "a_disapprove":"//a[contains(text(),'全部棄權') or contains(@href,'giveUp()')]",
+  "button_ignoreVote":"//button[contains(@onclick, 'ignoreVote') or  contains(text(),'下一步') ]",
+  "input_checkAllCandidates":"//input[@name=\"checkAllCandidates\"]",
+  "a_avarage":"//a[contains(@href, 'avarage')]",
+  "button_doProcess":"//button[contains(text(),'確認投票結果')]",
+  "button_done":"//button[contains(@onclick,'doProcess')]",
+  "div_robot":"//div[contains(text(),'我不是機器人')]",
+  "div_only":"//div[contains(text(),'只能')]",
+  "div_maintenance":"系統維護中，請於7:00~24:00進行投票！Scheduled system maintenance! Voting Hours : 7:00~24:00"
+}
